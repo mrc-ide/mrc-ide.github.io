@@ -1,0 +1,7 @@
+baseURL = "https://mrc-ide.github.io/"
+languageCode = "en-us"
+title = "MRC-GIDA Blog"
+theme = "cocoa-eh"
+
+[params]
+logofile = ""
