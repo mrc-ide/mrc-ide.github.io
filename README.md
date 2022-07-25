@@ -18,9 +18,23 @@ The default branch for this repo is `source` and all edits should be made to `so
      ./scripts/publish.sh
     ```
     
-## Editing the theme
-We're using [cocoa-eh](https://github.com/mtn/cocoa-eh-hugo-theme), available under the MIT 
-license. 
+## Re-generating the homepage
+Requires `python3` (3.7 or later)
 
-## Adding a blog post
-Add a new markdown file in `content/blog`
+1. Install requirements with:
+    ```bash
+    pip3 install -r requirements.txt --user
+    ```
+
+1. Set an environment variable `GITHUB_TOKEN` with a PAT for accessing the GitHub api
+
+1. To generate json files containing the details of mrc-ide packages:
+    ```bash
+    python3 ./scripts/generate_json.py
+    ```
+
+1. To generate an html snippet for displaying the list of packages:
+    ```bash
+    python3 ./scripts/generate_html.py
+    ```
+    
