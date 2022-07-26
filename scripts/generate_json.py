@@ -1,6 +1,5 @@
 import json
 import os
-import re
 
 from ghapi.all import GhApi, paged
 
@@ -13,8 +12,9 @@ exclude_list = ["mrc-ide/odin-dust-plots",
                 "mrc-ide/titanic2"]
 
 org_names = ["mrc-ide", "vimc", "reside-ic"]
-org_regex = re.compile("(mrc-ide)|(vimc)|(reside-ic)")
 
+# make sure this is set to a token with no permissions
+# so that private repos aren't returned
 api = GhApi(token=os.environ["GITHUB_TOKEN"])
 
 r_packages = []
@@ -74,14 +74,16 @@ def add_repo_for_org(org_name, repo_name):
     add_repo(org_name, repo)
 
 
+# add these 2 repos that are ours but hosted by external orgs
 add_repo_for_org("ropensci", "cyphr")
 add_repo_for_org("ropensci", "jsonvalidate")
 
-
+# now add repos for all our orgs
 for org in org_names:
     add_repos_for_org(org)
 
 
+# filter package dependencies to only internal ones
 py_names = set([p["name"] for p in py_packages])
 r_names = set([p["name"] for p in r_packages])
 js_names = set([p["name"] for p in js_packages])
@@ -100,6 +102,8 @@ with open('./static/repos.json', 'w') as outfile:
         json.dumps({"r": r_packages, "py": py_packages, "js": js_packages})
     )
 
+# dump out a file with all repo names, these then have to be manually sorted
+# into categories and stored in categories.json
 with open('./static/reponames.json', 'w') as outfile:
     outfile.write(
         json.dumps({"r": list(r_names), "py": list(py_names), "js": list(js_names)})

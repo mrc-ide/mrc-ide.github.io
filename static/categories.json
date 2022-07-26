@@ -56,7 +56,7 @@
     "globallmicmeffs",
     "naomi.utils"
   ],
-  "devtool": [
+  "tool": [
     "syncr",
     "fakerbase",
     "dratpack",
@@ -76,9 +76,7 @@
     "heartbeatr",
     "context",
     "context.rrq",
-    "buildr"
-  ],
-  "framework": [
+    "buildr",
     "ring",
     "hintr2",
     "orderly",
@@ -180,9 +178,7 @@
     "pika",
     "leapfrog",
     "squire",
-    "squire.page"
-  ],
-  "py": [
+    "squire.page",
     "constellation",
     "rse-groups",
     "youtrack-rest-python-library",
@@ -192,9 +188,7 @@
     "orderly-web-py",
     "vault-dev",
     "montagu-backup",
-    "orderly-web-deploy"
-  ],
-  "js": [
+    "orderly-web-deploy",
     "dopri",
     "@reside-ic/vue-dynamic-form",
     "@reside-ic/tensor",

@@ -50,7 +50,6 @@
     <style>
         .card {
             border: 1px solid #e1e1e1;
-            padding: 10px;
             margin-bottom: 20px;
         }
 
@@ -86,30 +85,51 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="individual-tab" data-bs-toggle="tab"
                     data-bs-target="#individual" type="button" role="tab"
-                    aria-controls="individual" aria-selected="false">Individual based modelling
+                    aria-controls="individual" aria-selected="false">Individual
+                based modelling
             </button>
         </li>
     </ul>
     <div class="tab-content" id="projectsContent">
         <div class="tab-pane fade show active" id="odin" role="tabpanel"
              aria-labelledby="odin-tab">
+            <div class="p-3">
+                The <i>odin</i> package is a "domain specific language", hosted
+                in R, for
+                representing and compiling ordinary differential equations.
+                Currently it is being used within the department for research
+                on
+                malaria, measles, HIV and flu.
+            </div>
             <div id="odin-graph" class="graph"></div>
         </div>
         <div class="tab-pane fade" id="orderly" role="tabpanel"
              aria-labelledby="orderly-tab">
+            <div class="p-3">
+                Orderly is a lightweight system for reproduducible
+                reporting, in R. Composed
+                of an R package, <i>orderly</i> and a web application, <i>OrderlyWeb</i>,
+                orderly
+                makes it straightforward to associate analyses with their
+                inputs,
+                version outputs and organise and distribute everything with a
+                user-friendly front-end. It is widely used in the department.
+            </div>
             <div id="orderly-graph" class="graph"></div>
         </div>
         <div class="tab-pane fade" id="naomi" role="tabpanel"
              aria-labelledby="naomi-tab">
-           <div id="naomi-graph" class="graph"></div>
-        </div>
-        <div class="tab-pane fade" id="vimc" role="tabpanel"
-             aria-labelledby="vimc-tab">
-           <div id="vimc-graph" class="graph"></div>
+            <div class="p-3">
+                Naomi is a model for subnational HIV estimates. It is exposed
+                to the web via an API and a web application, with more
+                details available at <a
+                    href="https://reside-ic.github.io/projects/naomi/">https://reside-ic.github.io/projects/naomi/</a>
+            </div>
+            <div id="naomi-graph" class="graph"></div>
         </div>
         <div class="tab-pane fade" id="individual" role="tabpanel"
              aria-labelledby="individual-tab">
-           <div id="individual-graph" class="graph"></div>
+            <div id="individual-graph" class="graph"></div>
         </div>
     </div>
     <h1>Tools and packages</h1>
@@ -119,12 +139,6 @@
                     data-bs-toggle="tab"
                     data-bs-target="#research" type="button" role="tab"
                     aria-controls="research" aria-selected="true">Research
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="framework-tab" data-bs-toggle="tab"
-                    data-bs-target="#frameworks" type="button" role="tab"
-                    aria-controls="frameworks" aria-selected="false">Frameworks
             </button>
         </li>
         <li class="nav-item" role="presentation">
@@ -143,14 +157,18 @@
     <div class="tab-content pt-3" id="reposContent">
         <div class="tab-pane fade show active" id="research" role="tabpanel"
              aria-labelledby="research-tab">
+             <div class="p-3">
+                The following are research outputs, authored directly by
+                researchers in the department
+            </div>
             {{ partial "research.html" }}
-        </div>
-        <div class="tab-pane fade" id="frameworks" role="tabpanel"
-             aria-labelledby="frameworks-tab">
-            {{ partial "frameworks.html" }}
         </div>
         <div class="tab-pane fade" id="tools" role="tabpanel"
              aria-labelledby="tools-tab">
+            <div class="p-3">
+                The following are software utilities, primarily
+                authored by researcher software engineers in the department
+            </div>
             {{ partial "tools.html" }}
         </div>
         <div class="tab-pane fade" id="all" role="tabpanel"

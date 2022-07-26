@@ -4,7 +4,7 @@ import json
 
 def build_card(tag, text, r):
     with tag("div", klass="col-6"):
-        with tag("div", klass="card"):
+        with tag("div", klass="card p-3"):
             with tag('a', href=r["url"]):
                 text(r["full_name"])
             if r["language"] is not None:
@@ -37,18 +37,16 @@ def generate_partial(repos, filename):
 
 with open('./static/repos.json', 'r') as f:
     repos = json.load(f)
-
+    repos = repos["r"] + repos["py"] + repos["js"]
 
 with open('./static/categories.json', 'r') as f:
     categories = json.load(f)
 
-research = [r for r in repos["r"] if r["name"] in categories["research"]]
-frameworks = [r for r in repos["r"] if r["name"] in categories["framework"]]
-tools = [r for r in repos["r"] if r["name"] in categories["devtool"]]
+research = [r for r in repos if r["name"] in categories["research"]]
+tools = [r for r in repos if r["name"] in categories["tool"]]
 
-all = research + frameworks + tools
+all = research + tools
 
 generate_partial(research, "./layouts/partials/research.html")
-generate_partial(frameworks, "./layouts/partials/frameworks.html")
 generate_partial(tools, "./layouts/partials/tools.html")
 generate_partial(all, "./layouts/partials/all.html")
