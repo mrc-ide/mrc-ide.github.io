@@ -40,10 +40,10 @@
     <title>
         {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
         {{ if eq $url "" }}
-            {{ .Site.Title }}
+        {{ .Site.Title }}
         {{ else }}
         {{ if .Params.heading }} {{ .Params.heading }} {{ else }}
-            {{ .Site.Title }} - {{ .Title }} {{ end }}
+        {{ .Site.Title }} - {{ .Title }} {{ end }}
         {{ end }}
     </title>
 
@@ -54,7 +54,7 @@
             margin-bottom: 20px;
         }
 
-        #mynetwork {
+        .graph {
             height: 600px;
         }
     </style>
@@ -62,12 +62,107 @@
 </head>
 <body>
 <div class="container my-5">
-    <h1>Tools and packages</h1>
-    <div id="mynetwork" class="mb-5">
+    <h1>Example Projects</h1>
+    <ul class="nav nav-tabs" id="projects" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="odin-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#odin" type="button" role="tab"
+                    aria-controls="odin" aria-selected="true">ODE modelling
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="orderly-tab" data-bs-toggle="tab"
+                    data-bs-target="#orderly" type="button" role="tab"
+                    aria-controls="orderly" aria-selected="false">Orderly
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="naomi-tab" data-bs-toggle="tab"
+                    data-bs-target="#naomi" type="button" role="tab"
+                    aria-controls="naomi" aria-selected="false">Naomi
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="individual-tab" data-bs-toggle="tab"
+                    data-bs-target="#individual" type="button" role="tab"
+                    aria-controls="individual" aria-selected="false">Individual based modelling
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content" id="projectsContent">
+        <div class="tab-pane fade show active" id="odin" role="tabpanel"
+             aria-labelledby="odin-tab">
+            <div id="odin-graph" class="graph"></div>
+        </div>
+        <div class="tab-pane fade" id="orderly" role="tabpanel"
+             aria-labelledby="orderly-tab">
+            <div id="orderly-graph" class="graph"></div>
+        </div>
+        <div class="tab-pane fade" id="naomi" role="tabpanel"
+             aria-labelledby="naomi-tab">
+           <div id="naomi-graph" class="graph"></div>
+        </div>
+        <div class="tab-pane fade" id="vimc" role="tabpanel"
+             aria-labelledby="vimc-tab">
+           <div id="vimc-graph" class="graph"></div>
+        </div>
+        <div class="tab-pane fade" id="individual" role="tabpanel"
+             aria-labelledby="individual-tab">
+           <div id="individual-graph" class="graph"></div>
+        </div>
     </div>
-    {{ partial "repos.html" }}
+    <h1>Tools and packages</h1>
+    <ul class="nav nav-tabs" id="repos" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="research-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#research" type="button" role="tab"
+                    aria-controls="research" aria-selected="true">Research
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="framework-tab" data-bs-toggle="tab"
+                    data-bs-target="#frameworks" type="button" role="tab"
+                    aria-controls="frameworks" aria-selected="false">Frameworks
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tool-tab" data-bs-toggle="tab"
+                    data-bs-target="#tools" type="button" role="tab"
+                    aria-controls="tools" aria-selected="false">Tools
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="all-tab" data-bs-toggle="tab"
+                    data-bs-target="#all" type="button" role="tab"
+                    aria-controls="all" aria-selected="false">All
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content pt-3" id="reposContent">
+        <div class="tab-pane fade show active" id="research" role="tabpanel"
+             aria-labelledby="research-tab">
+            {{ partial "research.html" }}
+        </div>
+        <div class="tab-pane fade" id="frameworks" role="tabpanel"
+             aria-labelledby="frameworks-tab">
+            {{ partial "frameworks.html" }}
+        </div>
+        <div class="tab-pane fade" id="tools" role="tabpanel"
+             aria-labelledby="tools-tab">
+            {{ partial "tools.html" }}
+        </div>
+        <div class="tab-pane fade" id="all" role="tabpanel"
+             aria-labelledby="all-tab">
+            {{ partial "all.html" }}
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
 <script type="text/javascript"
         src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 <script src="render.js"></script>

@@ -1,3 +1,4 @@
 ghapi
 emoji_data_python
 yattag
+pyyaml

@@ -19,7 +19,11 @@ The default branch for this repo is `source` and all edits should be made to `so
     ```
     
 ## Re-generating the homepage
-Requires `python3` (3.7 or later)
+The homepage template is at `layouts/index.html` and edits to blurbs, 
+page structure, styling etc can be made directly there.
+
+The tab content and graphs are generating using a series of python scripts as 
+follows, requiring `python3` (3.7 or later):
 
 1. Install requirements with:
     ```bash
@@ -33,8 +37,15 @@ Requires `python3` (3.7 or later)
     python3 ./scripts/generate_json.py
     ```
 
-1. To generate an html snippet for displaying the list of packages:
+1. To generate json files containing focal graphs (e.g. odin, orderly ecosystems):
+    ```bash
+    python3 ./scripts/generate_graphs.py 
+    ```
+    This depends on the existence of the previous json file containing metadata about all repos
+
+1. To generate html snippets for displaying the lists of packages:
     ```bash
     python3 ./scripts/generate_html.py
     ```
-    
+    This creates several partial html templates, one for each tab on the homepage:
+    Research, Frameworks, Tools and All.
