@@ -82,7 +82,6 @@ add_repo_for_org("ropensci", "jsonvalidate")
 for org in org_names:
     add_repos_for_org(org)
 
-
 # filter package dependencies to only internal ones
 py_names = set([p["name"] for p in py_packages])
 r_names = set([p["name"] for p in r_packages])
@@ -97,14 +96,23 @@ for p in py_packages:
 for p in js_packages:
     p["packages"] = list(set(p["packages"]).intersection(js_names))
 
+# write out list of repo metadata, sorted alphabetically by name
+all_repos = r_packages + py_packages + js_packages
+all_repos.sort(key=lambda x: x["name"].lower())
+
 with open('./static/repos.json', 'w') as outfile:
     outfile.write(
-        json.dumps({"r": r_packages, "py": py_packages, "js": js_packages})
+        json.dumps(all_repos)
     )
 
 # dump out a file with all repo names, these then have to be manually sorted
 # into categories and stored in categories.json
 with open('./static/reponames.json', 'w') as outfile:
     outfile.write(
-        json.dumps({"r": list(r_names), "py": list(py_names), "js": list(js_names)})
+        json.dumps(
+            {"r": list(r_names),
+             "py": list(py_names),
+             "js": list(js_names)
+             }
+        )
     )

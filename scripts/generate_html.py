@@ -37,7 +37,6 @@ def generate_partial(repos, filename):
 
 with open('./static/repos.json', 'r') as f:
     repos = json.load(f)
-    repos = repos["r"] + repos["py"] + repos["js"]
 
 with open('./static/categories.json', 'r') as f:
     categories = json.load(f)

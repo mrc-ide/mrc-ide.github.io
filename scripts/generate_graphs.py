@@ -2,7 +2,6 @@ import json
 
 with open('./static/repos.json', 'r') as f:
     repos = json.load(f)
-    repos = repos["r"]
 
 
 def add_node(nodes, name):

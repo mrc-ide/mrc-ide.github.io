@@ -55,8 +55,19 @@ def parse_r_package(api, org_name, dat):
 
 
 def parse_python_package(api, org_name, dat):
-    # it's not so easy to work out which packages are internal ones here
-    return Repo(dat, [])
+    packages = []
+    try:
+        requirements = api.repos.get_content(org_name,
+                                         dat["name"],
+                                         "requirements.txt")
+        packages = requirements.split("\n")
+        packages = [p for p in packages if len(p) > 1]
+    except:
+        # requirements.txt might not exist since this isn't
+        # the criterion we used to determine whether a repo is
+        # a python package
+        pass
+    return Repo(dat, packages)
 
 
 def parse_npm_package(api, org_name, dat):
