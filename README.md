@@ -39,6 +39,12 @@ follows, requiring `python3` (3.7 or later):
 ./scripts/run_fetch
 ```
 
+1. Parse the DESCRIPTION files, which requires an R installation
+
+```bash
+./scripts/run_parse_description
+```
+
 1. To generate json files from this dataset run
     ```bash
     python3 ./scripts/generate_json.py

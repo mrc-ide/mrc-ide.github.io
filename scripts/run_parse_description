@@ -1,0 +1,77 @@
+#!/usr/bin/env Rscript
+ensure_packages <- function(pkgs) {
+  tmp_lib <- tempfile()
+  dir.create(tmp_lib)
+  .libPaths(c(tmp_lib, .libPaths()))
+  for (p in pkgs) {
+    ensure_package(p, tmp_lib)
+  }
+}
+
+ensure_package <- function(pkg, lib) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg, lib)
+    loadNamespace(pkg, lib)
+  }
+}
+
+get_authors <- function(dat) {
+  authors <- tryCatch(
+    dat$get_authors(),
+    error = function(e) {
+      dat$coerce_authors_at_r()
+      dat$get_authors()
+    })
+  keep <- vapply(authors, function(x) any(x$role %in% c("aut", "cre", "ctb")),
+                 TRUE)
+  format(authors[keep], include = c("given", "family"))
+}
+
+get_deps <- function(dat) {
+  sort(unique(dat$get_deps()$package))
+}
+
+get_urls <- function(dat) {
+  urls <- dat$get_urls()
+  urls[!grepl("^https?://github.com/", urls)]
+}
+
+parse_description <- function(path) {
+  dat <- desc::desc(path)
+  list(name = jsonlite::unbox(dat$get_field("Package", "")),
+       version = jsonlite::unbox(dat$get_field("Version", "")),
+       title = jsonlite::unbox(dat$get_field("Title", "")),
+       description = jsonlite::unbox(dat$get_field("Description", "")),
+       authors = get_authors(dat),
+       url = get_urls(dat),
+       dependencies = get_deps(dat))
+}
+
+process_description <- function(path) {
+  writeLines(
+    jsonlite::toJSON(parse_description(path)),
+    sub("DESCRIPTION$", "description.json", path))
+}
+
+process_path <- function(path) {
+  files <- dir(path, recursive = TRUE, pattern = "^DESCRIPTION",
+               full.names = TRUE)
+  for (p in files) {
+    message(p)
+    tryCatch(
+      process_description(p),
+      error = function(e) {
+        message(sprintf("Parse failed for %s: %s", p, e$message))
+      })
+  }
+}
+
+main <- function() {
+  options(warn = 1) # immediate warnings
+  ensure_packages(c("desc", "jsonlite"))
+  process_path("data")
+}
+
+if (!interactive()) {
+  main()
+}
