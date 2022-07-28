@@ -19,6 +19,7 @@ The default branch for this repo is `source` and all edits should be made to `so
     ```
     
 ## Re-generating the homepage
+
 The homepage template is at `layouts/index.html` and edits to blurbs, 
 page structure, styling etc can be made directly there.
 
@@ -32,7 +33,13 @@ follows, requiring `python3` (3.7 or later):
 
 1. Set an environment variable `GITHUB_TOKEN` with a PAT for accessing the GitHub api
 
-1. To generate json files containing the details of mrc-ide packages:
+1. Fetching the data from github is the slowest part and should need to be done infrequently in development, though we'll arrange to do this periodically to refresh the data.
+
+```bash
+./scripts/run_fetch
+```
+
+1. To generate json files from this dataset run
     ```bash
     python3 ./scripts/generate_json.py
     ```
