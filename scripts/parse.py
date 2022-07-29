@@ -100,6 +100,10 @@ def resolve_dependencies(dat, repos):
             if el in repos[language]:
                 deps[el] = repos[language][el]
         d["dependencies"] = deps
+        d["used_by"] = []
+    for d in dat.values():
+        for el in d["dependencies"].values():
+            dat[el]["used_by"].append(d["full_name"])
 
 
 def read_extra_metadata(path):
@@ -125,10 +129,12 @@ def write_repos(dat, config):
 
 
 def parse_requirements(path):
+    dependencies = []
     if os.path.exists(path):
         with open(path, "r") as f:
-            dependencies = \
-                [str(req) for req in pkg_resources.parse_requirements(f)]
-    else:
-        depenencies = []
+            try:
+                dependencies = \
+                    [str(req) for req in pkg_resources.parse_requirements(f)]
+            except:
+                print(f"Failed to parse python deps at {path}")
     return dependencies
