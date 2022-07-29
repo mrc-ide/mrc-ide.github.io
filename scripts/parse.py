@@ -1,6 +1,7 @@
 import csv
 import json
 import os
+import pkg_resources
 
 from pathlib import Path
 
@@ -46,8 +47,9 @@ def load_metadata_r(path, dat):
 
 
 def load_metadata_python(path, dat):
-    # https://stackoverflow.com/questions/27790297/parse-setup-py-without-setuptools
-    # doing this requires parsing the setup.py really
+    path_requirements = os.path.join(path, "requirements.txt")
+    dependencies = parse_requirements(path_requirements)
+    # Parsing setup.py looks like a nightmare
     dat["name"] = dat["repo"] # should come from setup.py/pyproject.toml
     dat["version"] = None
     dat["title"] = None
@@ -120,3 +122,13 @@ def write_repos(dat, config):
     dest = os.path.join(config.path, "repos.json")
     with open(dest, "w") as f:
         f.write(json.dumps(dat))
+
+
+def parse_requirements(path):
+    if os.path.exists(path):
+        with open(path, "r") as f:
+            dependencies = \
+                [str(req) for req in pkg_resources.parse_requirements(f)]
+    else:
+        depenencies = []
+    return dependencies

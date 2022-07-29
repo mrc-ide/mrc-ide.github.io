@@ -71,14 +71,16 @@ def fetch_repo(api, org_name, repo_data, config):
         return
     print(f"  - {full_name}")
 
-    stats_copy = ["created_at", "updated_at", "pushed_at",
-                  "stargazers_count", "homepage"]
-    ret = {nm: repo_data[nm] for nm in stats_copy}
+    copy = ["created_at", "updated_at", "pushed_at",
+            "stargazers_count", "homepage", "topics"]
+    ret = {nm: repo_data[nm] for nm in copy}
     ret["org"] = org_name
     ret["repo"] = repo_name
     ret["full_name"] = full_name
-    # We're going to overwrite this
+    # We're going to overwrite this later if we can pull better data
+    # from the language-specific files.
     ret["language_github"] = repo_data["language"]
+    ret["description_github"] = repo_data["description"]
 
     branch = repo_data.default_branch
     tree = api.git.get_tree(org_name, repo_name, branch)["tree"]
