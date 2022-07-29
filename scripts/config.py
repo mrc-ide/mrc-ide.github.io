@@ -13,6 +13,7 @@ class Config:
         self.orgs = dat["orgs"]
         self.sentinals = {
             "DESCRIPTION": "r",
+            "requirements.txt": "python",
             "setup.py": "python",
             "pyproject.toml": "python",
             "package.json": "js"

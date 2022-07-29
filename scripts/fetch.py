@@ -72,11 +72,13 @@ def fetch_repo(api, org_name, repo_data, config):
     print(f"  - {full_name}")
 
     stats_copy = ["created_at", "updated_at", "pushed_at",
-                  "stargazers_count", "language", "homepage"]
+                  "stargazers_count", "homepage"]
     ret = {nm: repo_data[nm] for nm in stats_copy}
     ret["org"] = org_name
     ret["repo"] = repo_name
     ret["full_name"] = full_name
+    # We're going to overwrite this
+    ret["language_github"] = repo_data["language"]
 
     branch = repo_data.default_branch
     tree = api.git.get_tree(org_name, repo_name, branch)["tree"]
@@ -86,6 +88,7 @@ def fetch_repo(api, org_name, repo_data, config):
 
     ret["language"] = language
     ret["metadata"] = get_metadata(api, org_name, repo_name, metadata_files)
+    ret["contributors"] = get_contributors(api, org_name, repo_name)
 
     return ret
 
@@ -122,4 +125,11 @@ def get_metadata(api, org_name, repo_name, files):
     for f in files:
         ret[f] = get_content_string(
             api.repos.get_content(org_name, repo_name, f))
+    return ret
+
+
+def get_contributors(api, org_name, repo_name):
+    data = api.repos.get_contributors_stats(org_name, repo_name)
+    ret = [{"user": el["author"]["login"], "count": el["total"]} for el in data]
+    ret.sort(key=lambda x: x["count"], reverse=True)
     return ret
