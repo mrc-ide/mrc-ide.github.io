@@ -7,6 +7,7 @@ class Config:
         path_json = os.path.join(path, "config.json")
         with open(path_json, "r") as f:
             dat = json.load(f)
+        self.path = path
         self.exclude = dat["exclude"]
         self.extra = dat["extra"]
         self.language = dat["language"]

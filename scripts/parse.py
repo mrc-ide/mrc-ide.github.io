@@ -1,15 +1,17 @@
+import csv
 import json
 import os
 
 from pathlib import Path
 
 
-def read_metadata(path):
+def read_packages(path, config):
     ret = {}
     for p in Path('data').rglob('metadata.json'):
         d = load_metadata(p.parent)
         key = d["full_name"]
-        ret[key] = d
+        if key not in config.exclude:
+            ret[key] = d
     return ret
 
 
@@ -34,8 +36,7 @@ def load_metadata_r(path, dat):
     path_description = os.path.join(path, "description.json")
     if os.path.exists(path_description):
         desc = read_json(path_description)
-        if desc["name"]:
-            dat["name"] = desc["name"]
+        dat["name"] = desc.get("name", None)
         dat["version"] = desc["version"]
         dat["title"] = desc["title"]
         dat["description"] = desc["description"]
@@ -45,8 +46,9 @@ def load_metadata_r(path, dat):
 
 
 def load_metadata_python(path, dat):
+    # https://stackoverflow.com/questions/27790297/parse-setup-py-without-setuptools
     # doing this requires parsing the setup.py really
-    # not sure why we failed to get any requirements.txt files though
+    dat["name"] = dat["repo"] # should come from setup.py/pyproject.toml
     dat["version"] = None
     dat["title"] = None
     dat["description"] = None
@@ -58,14 +60,63 @@ def load_metadata_python(path, dat):
 def load_metadata_js(path, dat):
     path_package = os.path.join(path, "package.json")
     if os.path.exists(path_package):
-        desc = read_json(path_package)
-        if desc.get("name", None):
-            dat["name"] = desc["name"]
-        dat["version"] = desc.get("version", None)
+        pkg = read_json(path_package)
+        dat["name"] = pkg.get("name", None)
+        dat["version"] = pkg.get("version", None)
         dat["title"] = None
-        dat["description"] = dat.get("description", None)
-        dat["dependencies"] = list(dat.get("dependencies", {}).keys()) + \
-            list(dat.get("devDependencies", {}).keys())
-        author = dat.get("author", None)
+        dat["description"] = pkg.get("description", None)
+        dat["dependencies"] = list(pkg.get("dependencies", {}).keys()) + \
+            list(pkg.get("devDependencies", {}).keys())
+        author = pkg.get("author", None)
         dat["authors"] = [author] if author else []
     return dat
+
+
+def build_repo_map(dat):
+    ret = {}
+    for d in dat.values():
+        language = d["language"]
+        name = d.get("name", None)
+        key = d["full_name"]
+        if language and name:
+            if language not in ret.keys():
+                ret[language] = {}
+            if name in ret[language].keys():
+                prev = ret[language][name]
+                raise Exception(f"Duplicate name {name} ({language}):" +
+                                f" prev: {prev}, curr: {key}")
+            ret[language][name] = key
+    return ret
+
+
+def resolve_dependencies(dat, repos):
+    ret = {}
+    for d in dat.values():
+        language = d["language"]
+        deps = {}
+        for el in d.get("dependencies", []):
+            if el in repos[language]:
+                deps[el] = repos[language][el]
+        d["dependencies"] = deps
+
+
+def read_extra_metadata(path):
+    with open(path) as f:
+        reader = csv.DictReader(f)
+        return [row for row in reader]
+
+
+def add_extra_metadata(dat, config):
+    metadata = read_extra_metadata(os.path.join(config.path, "metadata.csv"))
+    for el in metadata:
+        key = el["repo"]
+        d = dat.get(key, None)
+        if d:
+            for k in ["domain", "authorship", "keyword", "doi"]:
+                d[k] = el[k]
+
+
+def write_repos(dat, config):
+    dest = os.path.join(config.path, "repos.json")
+    with open(dest, "w") as f:
+        f.write(json.dumps(dat))
