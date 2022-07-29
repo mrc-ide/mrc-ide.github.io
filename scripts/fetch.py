@@ -72,13 +72,16 @@ def fetch_repo(api, org_name, repo_data, config):
     print(f"  - {full_name}")
 
     copy = ["created_at", "updated_at", "pushed_at",
-            "stargazers_count", "homepage", "topics"]
+            "stargazers_count", "homepage",
+            "language", "description"]
     ret = {nm: repo_data[nm] for nm in copy}
     ret["org"] = org_name
     ret["repo"] = repo_name
     ret["full_name"] = full_name
+    # This comes out in some crazy format:
+    ret["topics"] = [x for x in repo_data["topics"]]
     # We're going to overwrite this later if we can pull better data
-    # from the language-specific files.
+    # from the language-specific files, so duplicate the field.
     ret["language_github"] = repo_data["language"]
     ret["description_github"] = repo_data["description"]
 
