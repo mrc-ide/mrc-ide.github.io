@@ -1,1 +1,86 @@
-{"nodes": [{"id": "hypatia", "label": "hypatia"}, {"id": "individual", "label": "individual"}, {"id": "squire", "label": "squire"}, {"id": "malariasimulation", "label": "malariasimulation"}, {"id": "malariaEquilibrium", "label": "malariaEquilibrium"}, {"id": "safir", "label": "safir"}, {"id": "nimue", "label": "nimue"}, {"id": "safir2", "label": "safir2"}, {"id": "sirstochastic", "label": "sirstochastic"}], "edges": [{"from": "hypatia", "to": "individual"}, {"from": "hypatia", "to": "squire"}, {"from": "malariasimulation", "to": "individual"}, {"from": "malariasimulation", "to": "malariaEquilibrium"}, {"from": "safir", "to": "individual"}, {"from": "safir", "to": "squire"}, {"from": "safir", "to": "nimue"}, {"from": "safir2", "to": "individual"}, {"from": "safir2", "to": "squire"}, {"from": "safir2", "to": "nimue"}, {"from": "sirstochastic", "to": "individual"}]}
+{
+  "nodes": [
+    {
+      "id": "hypatia",
+      "label": "hypatia"
+    },
+    {
+      "id": "individual",
+      "label": "individual"
+    },
+    {
+      "id": "squire",
+      "label": "squire"
+    },
+    {
+      "id": "malariasimulation",
+      "label": "malariasimulation"
+    },
+    {
+      "id": "malariaEquilibrium",
+      "label": "malariaEquilibrium"
+    },
+    {
+      "id": "safir",
+      "label": "safir"
+    },
+    {
+      "id": "nimue",
+      "label": "nimue"
+    },
+    {
+      "id": "safir2",
+      "label": "safir2"
+    },
+    {
+      "id": "sirstochastic",
+      "label": "sirstochastic"
+    }
+  ],
+  "edges": [
+    {
+      "from": "hypatia",
+      "to": "individual"
+    },
+    {
+      "from": "hypatia",
+      "to": "squire"
+    },
+    {
+      "from": "malariasimulation",
+      "to": "individual"
+    },
+    {
+      "from": "malariasimulation",
+      "to": "malariaEquilibrium"
+    },
+    {
+      "from": "safir",
+      "to": "individual"
+    },
+    {
+      "from": "safir",
+      "to": "squire"
+    },
+    {
+      "from": "safir",
+      "to": "nimue"
+    },
+    {
+      "from": "safir2",
+      "to": "individual"
+    },
+    {
+      "from": "safir2",
+      "to": "squire"
+    },
+    {
+      "from": "safir2",
+      "to": "nimue"
+    },
+    {
+      "from": "sirstochastic",
+      "to": "individual"
+    }
+  ]
+}
