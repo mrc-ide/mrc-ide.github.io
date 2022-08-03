@@ -1,8 +1,16 @@
 <div class="col-6">
     <div class="card p-3">
-        <a href="http://github.com/{{ .org }}/{{ .repo }}">{{.org}}/{{ .repo }}</a>
-        {{ if .language }}<div>language: {{ .language }}</div>{{ end }}
-        <div>{{ .Name }}</div>
+        <a href="http://github.com/{{ .org }}/{{ .repo }}">{{ .name }}</a>
+        {{ if .language }}
+        <div>Language: {{ .language }}</div>
+        {{ end }}
+        {{ if .description }}
+        <div>{{ .description }}</div>
+        {{ else }}
+        {{ if .description_github }}
+        <div>{{ .description_github }}</div>
+        {{ end }}
+        {{ end }}
         {{ if .homepage }}
         <a href="{{ .homepage }}">{{ .homepage }}</a>{{ end }}
         {{ if .dependencies }}
