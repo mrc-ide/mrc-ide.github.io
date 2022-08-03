@@ -7,7 +7,7 @@ from pathlib import Path
 
 def read_packages(path, config):
     ret = {}
-    for p in Path('data').rglob('metadata.json'):
+    for p in Path(path).rglob('metadata.json'):
         d = load_metadata(p.parent)
         key = d["full_name"]
         if key not in config.exclude:
