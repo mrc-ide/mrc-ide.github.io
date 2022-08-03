@@ -161,7 +161,7 @@
                 The following are research outputs, authored directly by
                 researchers in the department
             </div>
-            {{ partial "research.html" . }}
+            {{ partialCached "research.html" . }}
         </div>
         <div class="tab-pane fade" id="tools" role="tabpanel"
              aria-labelledby="tools-tab">
@@ -169,11 +169,11 @@
                 The following are software utilities, primarily
                 authored by researcher software engineers in the department
             </div>
-            {{ partial "tools.html" . }}
+            {{ partialCached "tools.html" . }}
         </div>
         <div class="tab-pane fade" id="all" role="tabpanel"
              aria-labelledby="all-tab">
-            {{ partial "all.html" . }}
+            {{ partialCached "all.html" . }}
         </div>
     </div>
 </div>
