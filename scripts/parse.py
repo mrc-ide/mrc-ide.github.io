@@ -5,6 +5,8 @@ import pkg_resources
 
 from pathlib import Path
 
+from config import Config
+
 
 def generate_json(path):
     config = Config(path)
@@ -42,14 +44,21 @@ def load_metadata(path):
     return dat
 
 
+## When doing this, we probably want to skip over dummy entries like:
+## "What the Package Does (One Line, Title Case)"
+## which is added by devtools
 def load_metadata_r(path, dat):
+    ignore_title = "What the package does (one paragraph)"
+    ignore_description = "What the Package Does (one line, title case)"
     path_description = os.path.join(path, "description.json")
     if os.path.exists(path_description):
         desc = read_json(path_description)
         dat["name"] = desc.get("name", None)
         dat["version"] = desc["version"]
-        dat["title"] = desc["title"]
-        dat["description"] = desc["description"]
+        dat["title"] = desc["title"] \
+            if desc["title"] != ignore_title else None
+        dat["description"] = desc["description"] \
+            if desc["description"] != ignore_description else None
         dat["dependencies"] = desc["dependencies"]
         dat["authors"] = desc["authors"]
     return dat
@@ -133,6 +142,7 @@ def add_extra_metadata(dat, config):
 
 def write_repos(dat, config):
     dest = os.path.join(config.path, "repos.json")
+    print(f"Writing {dest}")
     with open(dest, "w") as f:
         f.write(json.dumps(dat))
 
