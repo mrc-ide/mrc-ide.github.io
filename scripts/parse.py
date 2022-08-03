@@ -144,7 +144,7 @@ def write_repos(dat, config):
     dest = os.path.join(config.path, "repos.json")
     print(f"Writing {dest}")
     with open(dest, "w") as f:
-        f.write(json.dumps(dat))
+        f.write(json.dumps(list(dat.values())))
 
 
 def parse_requirements(path):
