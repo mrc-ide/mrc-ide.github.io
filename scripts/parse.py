@@ -6,6 +6,15 @@ import pkg_resources
 from pathlib import Path
 
 
+def generate_json(path):
+    config = Config(path)
+    dat = read_packages(os.path.join(path, "data"), config)
+    repos = build_repo_map(dat)
+    resolve_dependencies(dat, repos)
+    add_extra_metadata(dat, config)
+    write_repos(dat, config)
+
+
 def read_packages(path, config):
     ret = {}
     for p in Path(path).rglob('metadata.json'):

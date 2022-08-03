@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-from fetch import fetch
 import os
+
+from fetch import fetch
 
 if __name__ == "__main__":
     root = os.path.dirname(os.path.realpath(__file__))

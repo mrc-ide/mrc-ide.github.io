@@ -1,16 +1,8 @@
 #!/usr/bin/env python3
-import csv
-import json
+import os
 
-from parse import *
-from config import Config
+from parse import generate_json
 
-root = "."
-config = Config(root)
-
-dat = read_packages(os.path.join(root, "data"), config)
-repos = build_repo_map(dat)
-resolve_dependencies(dat, repos)
-add_extra_metadata(dat, config)
-
-write_repos(dat, config)
+if __name__ == "__main__":
+    root = os.path.dirname(os.path.realpath(__file__))
+    generate_json(root)
