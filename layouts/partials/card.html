@@ -1,0 +1,17 @@
+<div class="col-6">
+    <div class="card p-3">
+        <a href="http://github.com/{{ .org }}/{{ .repo }}">{{.org}}/{{ .repo }}</a>
+        {{ if .language }}<div>language: {{ .language }}</div>{{ end }}
+        <div>{{ .Name }}</div>
+        {{ if .homepage }}
+        <a href="{{ .homepage }}">{{ .homepage }}</a>{{ end }}
+        {{ if .dependencies }}
+        <span>Depends on:</span>
+        <ul>
+            {{ range .dependencies }}
+            {{ . }}
+            {{ end }}
+        </ul>
+        {{ end }}
+    </div>
+</div>

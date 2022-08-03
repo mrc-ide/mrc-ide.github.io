@@ -14,6 +14,7 @@ def generate_json(path):
     repos = build_repo_map(dat)
     resolve_dependencies(dat, repos)
     add_extra_metadata(dat, config)
+    add_categories(dat, config)
     write_repos(dat, config)
 
 
@@ -68,7 +69,7 @@ def load_metadata_python(path, dat):
     path_requirements = os.path.join(path, "requirements.txt")
     dependencies = parse_requirements(path_requirements)
     # Parsing setup.py looks like a nightmare
-    dat["name"] = dat["repo"] # should come from setup.py/pyproject.toml
+    dat["name"] = dat["repo"]  # should come from setup.py/pyproject.toml
     dat["version"] = None
     dat["title"] = None
     dat["description"] = None
@@ -86,7 +87,7 @@ def load_metadata_js(path, dat):
         dat["title"] = None
         dat["description"] = pkg.get("description", None)
         dat["dependencies"] = list(pkg.get("dependencies", {}).keys()) + \
-            list(pkg.get("devDependencies", {}).keys())
+                              list(pkg.get("devDependencies", {}).keys())
         author = pkg.get("author", None)
         dat["authors"] = [author] if author else []
     return dat
@@ -110,7 +111,6 @@ def build_repo_map(dat):
 
 
 def resolve_dependencies(dat, repos):
-    ret = {}
     for d in dat.values():
         language = d["language"]
         deps = {}
@@ -140,8 +140,19 @@ def add_extra_metadata(dat, config):
                 d[k] = el[k]
 
 
+def add_categories(dat, config):
+    for d in dat.values():
+        name = d.get("name", None)
+        if name in config.categories["devtool"]:
+            d["type"] = "tool"
+        elif name in config.categories["research"]:
+            d["type"] = "research"
+        else:
+            d["type"] = "unknown"
+
+
 def write_repos(dat, config):
-    dest = os.path.join(config.path, "repos.json")
+    dest = os.path.join(config.path, "../data/" "repos.json")
     print(f"Writing {dest}")
     with open(dest, "w") as f:
         f.write(json.dumps(list(dat.values())))
