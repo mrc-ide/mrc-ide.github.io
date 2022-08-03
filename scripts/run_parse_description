@@ -66,12 +66,15 @@ process_path <- function(path) {
   }
 }
 
-main <- function() {
+main <- function(path) {
   options(warn = 1) # immediate warnings
   ensure_packages(c("desc", "jsonlite"))
-  process_path("data")
+  process_path(path)
 }
 
 if (!interactive()) {
-  main()
+  args <- commandArgs(FALSE)
+  re <- "^--file=\\s*(.*)"
+  file <- sub(re, "\\1", grep(re, args, value = TRUE))
+  main(dirname(file))
 }
