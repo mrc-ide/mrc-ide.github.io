@@ -44,7 +44,10 @@ follows, requiring `python3` (3.7 or later):
 ```bash
 ./scripts/run_parse_description
 ```
+1. Generate a json file containing metadata in a format that we will use
 
+```bash
+./scripts/run_generate_json
 1. To generate json files from this dataset run
     ```bash
     python3 ./scripts/generate_json.py
