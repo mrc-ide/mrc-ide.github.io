@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+import os
+
+from parse import generate_json
+
+if __name__ == "__main__":
+    root = os.path.dirname(os.path.realpath(__file__))
+    generate_json(root)

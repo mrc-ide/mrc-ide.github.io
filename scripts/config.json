@@ -1,0 +1,47 @@
+{
+    "orgs": [
+        "reside-ic",
+        "mrc-ide",
+        "vimc"
+    ],
+    "extra": [
+        "ropensci/cyphr",
+        "ropensci/jsonvalidate"
+    ],
+    "language": {
+        "reside-ic/random-xoshiro256": "js"
+    },
+    "exclude": [
+        "mrc-ide/buildr",
+        "mrc-ide/context.rrq",
+        "mrc-ide/dust-gpu-prototype",
+        "mrc-ide/dustgpu",
+        "mrc-ide/heartbeatr",
+        "mrc-ide/hintr.comparisons",
+        "mrc-ide/leapfrog-hiv",
+        "mrc-ide/matchbox",
+        "mrc-ide/modelapi",
+        "mrc-ide/odin.batch",
+        "mrc-ide/odin.js",
+        "mrc-ide/parrotmetric",
+        "mrc-ide/pkgbuilder",
+        "mrc-ide/provisionr",
+        "mrc-ide/rcrng",
+        "mrc-ide/roundtable",
+        "mrc-ide/sim",
+        "mrc-ide/xoshiro",
+        "reside-ic/dratpack",
+        "reside-ic/matchbox",
+        "reside-ic/repobuilder",
+        "reside-ic/sirstochastic",
+        "reside-ic/test.a",
+        "reside-ic/vue3-dynamic-form",
+        "vimc/montagu-backup",
+        "vimc/montagu-proxy",
+        "vimc/montagu.import",
+        "mrc-ide/odin-dust-plots",
+        "mrc-ide/mrc-ide.github.io",
+        "mrc-ide/titanic2",
+        "mrc-ide/thecount"
+    ]
+}
