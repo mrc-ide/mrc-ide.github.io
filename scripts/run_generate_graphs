@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
 import os
-import json
 
-from generate_graphs import generate_graph
+from generate_graphs import generate_graphs
 
 if __name__ == "__main__":
     root = os.path.dirname(os.path.realpath(__file__))
-    with open('./static/repos.json', 'r') as f:
-        repos = json.load(f)
-    generate_graph(repos, "odin", "./static/odin-graph.json")
-    generate_graph(repos, "naomi", "./static/naomi-graph.json")
-    generate_graph(repos, "individual", "./static/individual-graph.json")
-    generate_graph(repos, "orderly", "./static/orderly-graph.json")
+    generate_graphs(root)

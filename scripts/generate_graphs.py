@@ -1,4 +1,16 @@
 import json
+import os
+
+from config import Config
+
+
+def generate_graphs(root):
+    config = Config(root)
+    with open(os.path.join(config.static_dir, 'repos.json'), 'r') as f:
+        repos = json.load(f)
+    for graph in config.graphs:
+        filename = f"{graph}-graph.json"
+        generate_graph(repos, graph, os.path.join(config.static_dir, filename))
 
 
 def add_node(nodes, name):

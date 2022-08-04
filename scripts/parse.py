@@ -163,7 +163,9 @@ def add_emojis(dat):
 
 
 def write_repos(dat, config):
-    dest = os.path.join(config.path, "../data/" "repos.json")
+    if not os.path.isdir(config.data_dir):
+        os.mkdir(config.data_dir)
+    dest = os.path.join(config.data_dir, "repos.json")
     print(f"Writing {dest}")
     with open(dest, "w") as f:
         f.write(json.dumps(list(dat.values())))
