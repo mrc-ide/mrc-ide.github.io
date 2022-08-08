@@ -50,24 +50,8 @@ follows, requiring `python3` (3.7 or later):
 ./scripts/run_generate_json
 ```
 
-1. To generate json files from this dataset run
-    ```bash
-    python3 ./scripts/generate_json.py
-    ```
-    This will also write out a file containg all repo names at `static/reponames.json`. 
-    This is simply to help with the manual curation of a file categorising all the repos, found at `static/categories.json`.
+1. Generate json files containing focal graphs (e.g. odin, orderly ecosystems):
 
-1. To generate json files containing focal graphs (e.g. odin, orderly ecosystems):
-    ```bash
-    python3 ./scripts/generate_graphs.py 
-    ```
-    This depends on the existence of the previous json file containing metadata 
-    about all repos.
-
-1. To generate html snippets for displaying the lists of packages:
-    ```bash
-    python3 ./scripts/generate_html.py
-    ```
-    This creates several partial html templates, one for each tab on the homepage:
-    Research, Frameworks, Tools and All. It depends on the existence of a file
-     `static/categories.json` which has to be curated by hand.
+```bash
+python3 ./scripts/run_generate_graphs 
+```

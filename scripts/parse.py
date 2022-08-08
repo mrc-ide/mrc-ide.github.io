@@ -1,6 +1,8 @@
 import csv
 import json
 import os
+
+import emoji_data_python
 import pkg_resources
 
 from pathlib import Path
@@ -14,6 +16,8 @@ def generate_json(path):
     repos = build_repo_map(dat)
     resolve_dependencies(dat, repos)
     add_extra_metadata(dat, config)
+    add_categories(dat, config)
+    add_emojis(dat)
     write_repos(dat, config)
 
 
@@ -22,6 +26,7 @@ def read_packages(path, config):
     for p in Path(path).rglob('metadata.json'):
         d = load_metadata(p.parent)
         key = d["full_name"]
+        d["name"] = d["repo"]
         if key not in config.exclude:
             ret[key] = d
     return ret
@@ -53,7 +58,7 @@ def load_metadata_r(path, dat):
     path_description = os.path.join(path, "description.json")
     if os.path.exists(path_description):
         desc = read_json(path_description)
-        dat["name"] = desc.get("name", None)
+        dat["name"] = desc.get("name", dat["repo"])
         dat["version"] = desc["version"]
         dat["title"] = desc["title"] \
             if desc["title"] != ignore_title else None
@@ -68,7 +73,7 @@ def load_metadata_python(path, dat):
     path_requirements = os.path.join(path, "requirements.txt")
     dependencies = parse_requirements(path_requirements)
     # Parsing setup.py looks like a nightmare
-    dat["name"] = dat["repo"] # should come from setup.py/pyproject.toml
+    dat["name"] = dat["repo"]  # should come from setup.py/pyproject.toml
     dat["version"] = None
     dat["title"] = None
     dat["description"] = None
@@ -81,12 +86,12 @@ def load_metadata_js(path, dat):
     path_package = os.path.join(path, "package.json")
     if os.path.exists(path_package):
         pkg = read_json(path_package)
-        dat["name"] = pkg.get("name", None)
+        dat["name"] = pkg.get("name", dat["repo"])
         dat["version"] = pkg.get("version", None)
         dat["title"] = None
         dat["description"] = pkg.get("description", None)
         dat["dependencies"] = list(pkg.get("dependencies", {}).keys()) + \
-            list(pkg.get("devDependencies", {}).keys())
+                              list(pkg.get("devDependencies", {}).keys())
         author = pkg.get("author", None)
         dat["authors"] = [author] if author else []
     return dat
@@ -96,7 +101,7 @@ def build_repo_map(dat):
     ret = {}
     for d in dat.values():
         language = d["language"]
-        name = d.get("name", None)
+        name = d.get("name", d["repo"])
         key = d["full_name"]
         if language and name:
             if language not in ret.keys():
@@ -110,7 +115,6 @@ def build_repo_map(dat):
 
 
 def resolve_dependencies(dat, repos):
-    ret = {}
     for d in dat.values():
         language = d["language"]
         deps = {}
@@ -140,8 +144,28 @@ def add_extra_metadata(dat, config):
                 d[k] = el[k]
 
 
+def add_categories(dat, config):
+    for d in dat.values():
+        name = d.get("name")
+        if name in config.categories["devtool"]:
+            d["type"] = "tool"
+        elif name in config.categories["research"]:
+            d["type"] = "research"
+        else:
+            d["type"] = "unknown"
+
+
+def add_emojis(dat):
+    for d in dat.values():
+        if d.get("description_github", None) is not None:
+            d["description_github"] = emoji_data_python.replace_colons(
+                d["description_github"])
+
+
 def write_repos(dat, config):
-    dest = os.path.join(config.path, "repos.json")
+    if not os.path.isdir(config.data_dir):
+        os.mkdir(config.data_dir)
+    dest = os.path.join(config.data_dir, "repos.json")
     print(f"Writing {dest}")
     with open(dest, "w") as f:
         f.write(json.dumps(list(dat.values())))

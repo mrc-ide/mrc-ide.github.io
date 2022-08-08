@@ -8,6 +8,8 @@ class Config:
         with open(path_json, "r") as f:
             dat = json.load(f)
         self.path = path
+        self.data_dir = os.path.join(path, "../data/")
+        self.static_dir = os.path.join(path, "../static/")
         self.exclude = dat["exclude"]
         self.extra = dat["extra"]
         self.language = dat["language"]
@@ -18,4 +20,6 @@ class Config:
             "setup.py": "python",
             "pyproject.toml": "python",
             "package.json": "js"
-        }
+        },
+        self.categories = dat["categories"]
+        self.graphs = ["odin", "naomi", "individual", "orderly"]

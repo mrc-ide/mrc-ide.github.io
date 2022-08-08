@@ -1,7 +1,16 @@
 import json
+import os
 
-with open('./static/repos.json', 'r') as f:
-    repos = json.load(f)
+from config import Config
+
+
+def generate_graphs(root):
+    config = Config(root)
+    with open(os.path.join(config.static_dir, 'repos.json'), 'r') as f:
+        repos = json.load(f)
+    for graph in config.graphs:
+        filename = f"{graph}-graph.json"
+        generate_graph(repos, graph, os.path.join(config.static_dir, filename))
 
 
 def add_node(nodes, name):
@@ -9,7 +18,7 @@ def add_node(nodes, name):
         nodes.append({"id": name, "label": name})
 
 
-def generate_graph(focal_node, filename):
+def generate_graph(repos, focal_node, filename):
     nodes = []
     edges = []
     for r in repos:
@@ -21,9 +30,3 @@ def generate_graph(focal_node, filename):
                 edges.append({"from": name, "to": p})
     with open(filename, 'w') as outfile:
         outfile.write(json.dumps({"nodes": nodes, "edges": edges}))
-
-
-generate_graph("odin", "./static/odin-graph.json")
-generate_graph("naomi", "./static/naomi-graph.json")
-generate_graph("individual", "./static/individual-graph.json")
-generate_graph("orderly", "./static/orderly-graph.json")
