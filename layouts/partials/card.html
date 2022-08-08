@@ -13,13 +13,32 @@
         {{ end }}
         {{ if .homepage }}
         <a href="{{ .homepage }}">{{ .homepage }}</a>{{ end }}
-        {{ if .dependencies }}
-        <span>Depends on:</span>
-        <ul>
-            {{ range .dependencies }}
-            {{ . }}
+        <div class="row pt-2">
+            {{ if .dependencies }}
+            <div class="col">
+                <span>Depends on:</span>
+                <ul>
+                    {{ range .dependencies }}
+                    <li>
+                        {{ . }}
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
             {{ end }}
-        </ul>
-        {{ end }}
+
+            {{ if .used_by }}
+            <div class="col">
+                <span>Used by:</span>
+                <ul>
+                    {{ range .used_by }}
+                    <li>
+                        {{ . }}
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </div>
     </div>
 </div>

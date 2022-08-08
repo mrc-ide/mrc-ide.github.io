@@ -101,6 +101,10 @@ def build_repo_map(dat):
     ret = {}
     for d in dat.values():
         language = d["language"]
+        if language is None:
+            if d["language_github"] is not None:
+                language = d["language_github"].lower()
+                d["language"] = language
         name = d.get("name", d["repo"])
         key = d["full_name"]
         if language and name:
@@ -166,6 +170,10 @@ def write_repos(dat, config):
     if not os.path.isdir(config.data_dir):
         os.mkdir(config.data_dir)
     dest = os.path.join(config.data_dir, "repos.json")
+    print(f"Writing {dest}")
+    with open(dest, "w") as f:
+        f.write(json.dumps(list(dat.values())))
+    dest = os.path.join(config.static_dir, "repos.json")
     print(f"Writing {dest}")
     with open(dest, "w") as f:
         f.write(json.dumps(list(dat.values())))

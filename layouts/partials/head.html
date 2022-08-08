@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {{ if .Site.Params.description }}
+    <meta name="description" content="{{ .Site.Params.description }}">
+    {{ end }}
+
+    {{ if .Site.Params.twitter }}
+    <meta property="twitter:site" content="@{{.Site.Params.twitter}}">
+    {{ end }}
+    <meta property="og:site_name" content="{{ .Site.Title }}"/>
+    <meta property="og:locale" content="{{ .Site.LanguageCode }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="{{ .Permalink }}"/>
+    <meta property="og:title" content="{{ .Title }}"/>
+    <meta property="twitter:title"
+          content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+    {{ if .Site.Params.social_banner }}
+    <meta property="og:image"
+          content="{{ if .Params.meta_img }}{{ .Site.BaseURL }}{{ .Params.meta_img }}{{ else }}{{ .Site.BaseURL }}{{.Site.Params.social_banner}}{{ end }}">
+    <meta property="twitter:card"
+          content="{{ if .Site.Params.usesmallsummarycard }}summary{{ else }}summary_large_image{{ end }}">
+    <meta property="twitter:image"
+          content="{{ if .Params.meta_img }}{{ .Site.BaseURL }}{{ .Params.meta_img }}{{ else }}{{ .Site.BaseURL }}{{.Site.Params.social_banner}}{{ end }}">
+    {{ else }}
+    <meta property="twitter:card" content="summary">
+    {{ end }}
+    <meta property="og:description"
+          content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else if .IsPage }}{{ .Description }}{{ end }}">
+    <meta property="twitter:description"
+          content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else if .IsPage }}{{ .Description }}{{ end }}">
+
+    <title>
+        {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
+        {{ if eq $url "" }}
+        {{ .Site.Title }}
+        {{ else }}
+        {{ if .Params.heading }} {{ .Params.heading }} {{ else }}
+        {{ .Site.Title }} - {{ .Title }} {{ end }}
+        {{ end }}
+    </title>
+
+    <style>
+        .card {
+            border: 1px solid #e1e1e1;
+            margin-bottom: 20px;
+        }
+
+        .graph {
+            height: 600px;
+        }
+    </style>
+</head>
+<body>

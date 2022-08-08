@@ -1,4 +1,6 @@
 .idea
 public
 scripts/data
+data
+static/*.json
 __pycache__

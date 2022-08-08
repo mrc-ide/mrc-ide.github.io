@@ -39,6 +39,7 @@
     "vimc/montagu-backup",
     "vimc/montagu-proxy",
     "vimc/montagu.import",
+    "vimc/drat",
     "mrc-ide/odin-dust-plots",
     "mrc-ide/mrc-ide.github.io",
     "mrc-ide/titanic2",
