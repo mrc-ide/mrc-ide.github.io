@@ -24,9 +24,9 @@ def generate_graph(repos, focal_node, filename):
     edges = []
     for r in repos:
         name = r["name"]
-        if name == focal_node or focal_node in r["packages"]:
+        if name == focal_node or focal_node in r["dependencies"]:
             add_node(nodes, name)
-            for p in r["packages"]:
+            for p in r["dependencies"]:
                 add_node(nodes, p)
                 edges.append({"from": name, "to": p})
     with open(filename, 'w') as outfile:
@@ -38,9 +38,9 @@ def generate_entire_graph(repos, filename):
     edges = []
     for r in repos:
         name = r["name"]
-        if len(r["packages"]) > 0:
+        if len(r["dependencies"]) > 0:
             add_node(nodes, name)
-            for p in r["packages"]:
+            for p in r["dependencies"]:
                 add_node(nodes, p)
                 edges.append({"from": name, "to": p})
     with open(filename, 'w') as outfile:
