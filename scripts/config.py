@@ -20,6 +20,6 @@ class Config:
             "setup.py": "python",
             "pyproject.toml": "python",
             "package.json": "js"
-        },
+        }
         self.categories = dat["categories"]
         self.graphs = ["odin", "naomi", "individual", "orderly"]
