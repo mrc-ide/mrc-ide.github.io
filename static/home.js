@@ -5,6 +5,12 @@ $(document).ready(function () {
         const numJs = repos.filter(r => r.language === "js" || r.language === "typescript").length;
         const numTot = repos.length;
 
+        const langs = [...new Set(repos.map(r => r.language))];
+        const numLangs = langs.map(l => ({l: l, n: repos.filter(r => r.language === l).length}))
+            .sort((x, y) => y.n - x.n);
+
+        console.log(langs)
+        console.log(numLangs)
         const pieData = {
             labels: [
                 'R',

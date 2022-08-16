@@ -6,16 +6,16 @@
             {{ .Content }}
         </div>
         {{ if eq .Title "Research"}}
-        {{ partialCached "research.html" .}}
+        {{ partialCached "research.html" . }}
         {{ end }}
         {{ if eq .Title "Tools"}}
-        {{ partialCached "tools.html" .}}
+        {{ partialCached "tools.html" . }}
         {{ end }}
         {{ if eq .Title "All"}}
-        {{ partialCached "all.html" .}}
+        {{ partialCached "all.html" . }}
         {{ end }}
         {{ if eq .Type "graph"}}
-        <div id="graph" class="graph"></div>
+        {{ partial "graph.html" }}
         {{ end }}
     </div>
 </div>

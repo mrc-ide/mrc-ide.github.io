@@ -1,4 +1,5 @@
-<div class="row">
+{{ partial "sort.html" }}
+<div class="row card-container">
     {{ range $.Site.Data.repos }}
     {{ if eq .type "tool" }}
     {{ partial "card.html" . }}

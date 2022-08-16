@@ -5,19 +5,44 @@
 <script type="text/javascript"
         src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 <script src="/render.js"></script>
-{{ if eq .Type "graph"}}
 <script>
-$(document).ready(function() {
-    var graphName = "{{ .Title }}";
-    $.get("/" + graphName.toLowerCase() + "-graph.json", function (graph) {
-        drawGraph("graph", graph)
-    });
-})
+    $(document).ready(function () {
+        const pageType = {{ .Type  }};
+        if (pageType === "connections") {
+            const tabEls = $('button[data-bs-toggle="tab"]');
+            if (tabEls.length > 0) {
+                const graphName = tabEls[0].dataset["bsTarget"].replace("#", "");
+                $.get("/" + graphName + "-graph.json", function (graph) {
+                    drawGraph(graphName + "-graph", graph)
+                });
+            }
+
+            tabEls.on('shown.bs.tab', function (event) {
+                const graphName = event.target.dataset["bsTarget"].replace("#", "");
+                $.get("/" + graphName + "-graph.json", function (graph) {
+                    drawGraph(graphName + "-graph", graph)
+                });
+            })
+        }
+
+        function sort(attr) {
+            const container = $(".active .card-container");
+            const cards = container.find(".repo");
+            container.html("");
+            cards.sort((a, b) => $(a).data(attr)?.toLowerCase() > $(b).data(attr)?.toLowerCase() ? 1 : -1)
+                .each((i, node) => container.append(node));
+        }
+
+        $("a").on("click", function(event) {
+            sort($(event.target).data("sort"))
+        });
+
+        sort("name");
+    })
 </script>
-{{ end }}
 {{ if .IsHome }}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="/home.js?1"></script>
+<script src="/home.js?2"></script>
 {{ end }}
 </body>
 </html>
