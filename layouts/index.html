@@ -1,188 +1,20 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-    <meta charset="utf-8">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    {{ if .Site.Params.description }}
-    <meta name="description" content="{{ .Site.Params.description }}">
-    {{ end }}
-
-    {{ if .Site.Params.twitter }}
-    <meta property="twitter:site" content="@{{.Site.Params.twitter}}">
-    {{ end }}
-    <meta property="og:site_name" content="{{ .Site.Title }}"/>
-    <meta property="og:locale" content="{{ .Site.LanguageCode }}"/>
-    <meta property="og:type" content="article"/>
-    <meta property="og:url" content="{{ .Permalink }}"/>
-    <meta property="og:title" content="{{ .Title }}"/>
-    <meta property="twitter:title"
-          content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
-    {{ if .Site.Params.social_banner }}
-    <meta property="og:image"
-          content="{{ if .Params.meta_img }}{{ .Site.BaseURL }}{{ .Params.meta_img }}{{ else }}{{ .Site.BaseURL }}{{.Site.Params.social_banner}}{{ end }}">
-    <meta property="twitter:card"
-          content="{{ if .Site.Params.usesmallsummarycard }}summary{{ else }}summary_large_image{{ end }}">
-    <meta property="twitter:image"
-          content="{{ if .Params.meta_img }}{{ .Site.BaseURL }}{{ .Params.meta_img }}{{ else }}{{ .Site.BaseURL }}{{.Site.Params.social_banner}}{{ end }}">
-    {{ else }}
-    <meta property="twitter:card" content="summary">
-    {{ end }}
-    <meta property="og:description"
-          content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else if .IsPage }}{{ .Description }}{{ end }}">
-    <meta property="twitter:description"
-          content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else if .IsPage }}{{ .Description }}{{ end }}">
-
-    <title>
-        {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
-        {{ if eq $url "" }}
-        {{ .Site.Title }}
-        {{ else }}
-        {{ if .Params.heading }} {{ .Params.heading }} {{ else }}
-        {{ .Site.Title }} - {{ .Title }} {{ end }}
-        {{ end }}
-    </title>
-
-    <style>
-        .card {
-            border: 1px solid #e1e1e1;
-            margin-bottom: 20px;
-        }
-
-        .graph {
-            height: 600px;
-        }
-    </style>
-
-</head>
-<body>
+{{ partial "header.html" }}
 <div class="container my-5">
-    <h1>Example Projects</h1>
-    <ul class="nav nav-tabs" id="projects" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="odin-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#odin" type="button" role="tab"
-                    aria-controls="odin" aria-selected="true">ODE modelling
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="orderly-tab" data-bs-toggle="tab"
-                    data-bs-target="#orderly" type="button" role="tab"
-                    aria-controls="orderly" aria-selected="false">Orderly
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="naomi-tab" data-bs-toggle="tab"
-                    data-bs-target="#naomi" type="button" role="tab"
-                    aria-controls="naomi" aria-selected="false">Naomi
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="individual-tab" data-bs-toggle="tab"
-                    data-bs-target="#individual" type="button" role="tab"
-                    aria-controls="individual" aria-selected="false">Individual
-                based modelling
-            </button>
-        </li>
-    </ul>
-    <div class="tab-content" id="projectsContent">
-        <div class="tab-pane fade show active" id="odin" role="tabpanel"
-             aria-labelledby="odin-tab">
-            <div class="p-3">
-                The <i>odin</i> package is a "domain specific language", hosted
-                in R, for
-                representing and compiling ordinary differential equations.
-                Currently it is being used within the department for research
-                on
-                malaria, measles, HIV and flu.
+    <div class="row">
+        <div class="col">
+            <div class="markdown">
+                {{ .Content }}
             </div>
-            <div id="odin-graph" class="graph"></div>
-        </div>
-        <div class="tab-pane fade" id="orderly" role="tabpanel"
-             aria-labelledby="orderly-tab">
-            <div class="p-3">
-                Orderly is a lightweight system for reproduducible
-                reporting, in R. Composed
-                of an R package, <i>orderly</i> and a web application, <i>OrderlyWeb</i>,
-                orderly
-                makes it straightforward to associate analyses with their
-                inputs,
-                version outputs and organise and distribute everything with a
-                user-friendly front-end. It is widely used in the department.
-            </div>
-            <div id="orderly-graph" class="graph"></div>
-        </div>
-        <div class="tab-pane fade" id="naomi" role="tabpanel"
-             aria-labelledby="naomi-tab">
-            <div class="p-3">
-                Naomi is a model for subnational HIV estimates. It is exposed
-                to the web via an API and a web application, with more
-                details available at <a
-                    href="https://reside-ic.github.io/projects/naomi/">https://reside-ic.github.io/projects/naomi/</a>
-            </div>
-            <div id="naomi-graph" class="graph"></div>
-        </div>
-        <div class="tab-pane fade" id="individual" role="tabpanel"
-             aria-labelledby="individual-tab">
-            <div id="individual-graph" class="graph"></div>
         </div>
     </div>
-    <h1>Tools and packages</h1>
-    <ul class="nav nav-tabs" id="repos" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="research-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#research" type="button" role="tab"
-                    aria-controls="research" aria-selected="true">Research
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tool-tab" data-bs-toggle="tab"
-                    data-bs-target="#tools" type="button" role="tab"
-                    aria-controls="tools" aria-selected="false">Tools
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="all-tab" data-bs-toggle="tab"
-                    data-bs-target="#all" type="button" role="tab"
-                    aria-controls="all" aria-selected="false">All
-            </button>
-        </li>
-    </ul>
-    <div class="tab-content pt-3" id="reposContent">
-        <div class="tab-pane fade show active" id="research" role="tabpanel"
-             aria-labelledby="research-tab">
-             <div class="p-3">
-                The following are research outputs, authored directly by
-                researchers in the department
-            </div>
-            {{ partialCached "research.html" . }}
+    <div class="row mt-5">
+        <div class="col-4 offset-1">
+             <canvas id="pieChart" class="graph"></canvas>
         </div>
-        <div class="tab-pane fade" id="tools" role="tabpanel"
-             aria-labelledby="tools-tab">
-            <div class="p-3">
-                The following are software utilities, primarily
-                authored by researcher software engineers in the department
-            </div>
-            {{ partialCached "tools.html" . }}
-        </div>
-        <div class="tab-pane fade" id="all" role="tabpanel"
-             aria-labelledby="all-tab">
-            {{ partialCached "all.html" . }}
+         <div class="col-6">
+             <canvas id="barChart" class="graph"></canvas>
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous"></script>
-<script type="text/javascript"
-        src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-<script src="render.js"></script>
-</body>
-</html>
+
+{{ partial "footer.html" . }}

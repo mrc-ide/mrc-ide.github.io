@@ -1,0 +1,23 @@
+{{ partial "header.html" . }}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="markdown">
+            {{ .Content }}
+        </div>
+        {{ if eq .Title "Research"}}
+        {{ partialCached "research.html" . }}
+        {{ end }}
+        {{ if eq .Title "Tools"}}
+        {{ partialCached "tools.html" . }}
+        {{ end }}
+        {{ if eq .Title "All"}}
+        {{ partialCached "all.html" . }}
+        {{ end }}
+        {{ if eq .Type "graph"}}
+        {{ partial "graph.html" }}
+        {{ end }}
+    </div>
+</div>
+
+{{ partial "footer.html" . }}

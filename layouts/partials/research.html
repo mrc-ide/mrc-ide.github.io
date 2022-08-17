@@ -1,5 +1,6 @@
-<div class="row">
-    {{ range .Site.Data.repos }}
+{{ partial "sort.html" }}
+<div class="row card-container">
+    {{ range sort .Site.Data.repos "updated_at" }}
     {{ if eq .type "research" }}
     {{ partial "card.html" . }}
     {{ end }}
