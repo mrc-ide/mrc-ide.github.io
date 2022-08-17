@@ -25,19 +25,23 @@
             })
         }
 
-        function sort(attr) {
-            const container = $(".active .card-container");
-            const cards = container.find(".repo");
-            container.html("");
-            cards.sort((a, b) => $(a).data(attr)?.toLowerCase() > $(b).data(attr)?.toLowerCase() ? 1 : -1)
-                .each((i, node) => container.append(node));
+
+        if (pageType === "software") {
+
+            function sort(attr) {
+                const container = $(".active .card-container");
+                const cards = container.find(".repo");
+                container.html("");
+                cards.sort((a, b) => $(a).data(attr)?.toLowerCase() > $(b).data(attr)?.toLowerCase() ? 1 : -1)
+                    .each((i, node) => container.append(node));
+            }
+
+            $(".sort > a").on("click", function (event) {
+                sort($(event.target).data("sort"))
+            });
+
+            sort("name");
         }
-
-        $("a").on("click", function(event) {
-            sort($(event.target).data("sort"))
-        });
-
-        sort("name");
     })
 </script>
 {{ if .IsHome }}
