@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://mrc-ide.github.io/software/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/software/all/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/categories/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/connections/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/connections/individual/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/connections/naomi/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/connections/odin/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/connections/orderly/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/software/research/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/tags/</loc>
+  </url><url>
+    <loc>https://mrc-ide.github.io/software/tools/</loc>
+  </url>
+</urlset>

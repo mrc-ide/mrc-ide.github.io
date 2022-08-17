@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Connections on MRC-GIDA</title>
+    <link>https://mrc-ide.github.io/connections/</link>
+    <description>Recent content in Connections on MRC-GIDA</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://mrc-ide.github.io/connections/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Individual</title>
+      <link>https://mrc-ide.github.io/connections/individual/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mrc-ide.github.io/connections/individual/</guid>
+      <description>individual is an R package for specifying and simulating individual-based models. It is used in the department for individual-based malaria and covid models.</description>
+    </item>
+    
+    <item>
+      <title>Naomi</title>
+      <link>https://mrc-ide.github.io/connections/naomi/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mrc-ide.github.io/connections/naomi/</guid>
+      <description>Naomi is a model for subnational HIV estimates. It is exposed to the web via an API and a web application, with more details available at https://reside-ic.github.io/projects/naomi/</description>
+    </item>
+    
+    <item>
+      <title>Odin</title>
+      <link>https://mrc-ide.github.io/connections/odin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mrc-ide.github.io/connections/odin/</guid>
+      <description>The odin package is a &amp;ldquo;domain specific language&amp;rdquo;, hosted in R, for representing and compiling ordinary differential equations. Currently it is being used within the department for research on malaria, measles, HIV, flu and COVID.</description>
+    </item>
+    
+    <item>
+      <title>Orderly</title>
+      <link>https://mrc-ide.github.io/connections/orderly/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mrc-ide.github.io/connections/orderly/</guid>
+      <description>orderly is a lightweight system for reproduducible reporting, in R. Composed of an R package, orderly and a web application, OrderlyWeb, orderly makes it straightforward to associate analyses with their inputs, version outputs and organise and distribute everything with a user-friendly front-end. It is widely used in the department.</description>
+    </item>
+    
+  </channel>
+</rss>
